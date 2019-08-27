@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<head>
+	<title>Slot Machine</title>
+	<style>
+		/* just an implement project which have three rows of slot machine */
+		@import url('https://fonts.googleapis.com/css?family=Roboto');
+		@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+		a {
+			color: #283593;
+			text-decoration: none;
+		}
+
+		h3 {
+			margin-top: 12px;
+		}
+
+		* {
+			margin: 0px;
+		}
+
+		body {
+			background-color: #000000;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+			font-family: 'Roboto', sans-serif;
+		}
+
+		main {
+			border-radius: 5px;
+			background-color: #1A92B5;
+			margin-top: 30px;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding-left: 15px;
+			padding-right: 15px;
+			margin-left: calc((100% - 580px) / 2);
+			width: 550px;
+		}
+
+		section#status {
+			margin-bottom: 25px;
+			padding-top: 25px;
+			padding-bottom: 25px;
+			border-radius: 5px;
+			text-align: center;
+			background-color: #37474F;
+			color: #FFFFFF;
+			font-size: 25px;
+			font-family: 'Roboto Mono', monospace;
+		}
+
+		section#Slots {
+			border-radius: 15px;
+			background-color: rgba(250, 250, 250, 0.822);
+		}
+
+		section#Gira {
+			margin-top: 25px;
+			padding-top: 25px;
+			padding-bottom: 25px;
+			border-radius: 5px;
+			text-align: center;
+			background-color: #F7900C;
+			color: #FFFFFF;
+			font-size: 25px;
+		}
+
+		section#Gira:hover {
+			background-color: #AFBB1D;
+		}
+
+		section#options {
+			margin-top: 20px;
+			padding-top: 5px;
+			border-radius: 5px;
+			background-color: #C62828;
+			color: #FFFFFF;
+		}
+
+		.option {
+			padding-left: 5px;
+		}
+
+		section#info {
+			background-color: #616161;
+			padding-left: 12px;
+			padding-bottom: 12px;
+			border-radius: 5px;
+			overflow: hidden;
+			animation-duration: 1s;
+			color: #BDBDBD;
+			margin-top: 50px;
+			margin-left: 30%;
+			margin-right: 30%;
+			display: none;
+		}
+
+		#slot1,
+		#slot2,
+		#slot3,
+		#slot4,
+		#slot5,
+		#slot6,
+		#slot7,
+		#slot8,
+		#slot9 {
+			display: inline-block;
+			margin-top: 5px;
+			margin-left: 15px;
+			margin-right: 15px;
+			background-size: 150px;
+			width: 150px;
+			height: 150px;
+		}
+
+		.slot-winner {
+			background-color: #E8D2C7;
+		}
+
+
+		.a1 {
+			background-image: url("res/tiles/seven.png");
+		}
+
+		.a2 {
+			background-image: url("res/tiles/cherries.png");
+		}
+
+		.a3 {
+			background-image: url("res/tiles/club.png");
+		}
+
+		.a4 {
+			background-image: url("res/tiles/diamond.png");
+		}
+
+		.a5 {
+			background-image: url("res/tiles/heart.png");
+		}
+
+		.a6 {
+			background-image: url("res/tiles/spade.png");
+		}
+
+		.a7 {
+			background-image: url("res/tiles/joker.png");
+		}
+	</style>
+</head>
+<html>
+
+<body onload="toggleAudio()">
+	<main>
+		<section id="status">WELCOME!</section>
+		<section id="Slots">
+			<div id="slot1" class="a1"></div>
+			<div id="slot2" class="a1"></div>
+			<div id="slot3" class="a1"></div>
+			<!-- second row -->
+			<div class="slot-winner">
+				<div id="slot4" class="a2"></div>
+				<div id="slot5" class="a2"></div>
+				<div id="slot6" class="a2"></div>	
+			</div>
+			<!-- third row -->
+			<div id="slot7" class="a3"></div>
+			<div id="slot8" class="a3"></div>
+			<div id="slot9" class="a3"></div>
+
+
+		</section>
+		<section onclick="doSlot()" id="Gira">TAKE A SPIN!</section>
+		<section id="options">
+			<img src="res/icons/audioOn.png" id="audio" class="option" onclick="toggleAudio()" />
+		</section>
+	</main>
+
+	<script>
+		var doing = false;
+		var spin = [new Audio("res/sounds/spin.mp3"), new Audio("res/sounds/spin.mp3"), new Audio("res/sounds/spin.mp3"), new Audio("res/sounds/spin.mp3"), new Audio("res/sounds/spin.mp3"), new Audio("res/sounds/spin.mp3"), new Audio("res/sounds/spin.mp3")];
+		var coin = [new Audio("res/sounds/coin.mp3"), new Audio("res/sounds/coin.mp3"), new Audio("res/sounds/coin.mp3")]
+		var win = new Audio("res/sounds/win.mp3");
+		var lose = new Audio("res/sounds/lose.mp3");
+		var audio = false;
+		let status = document.getElementById("status")
+		var info = true;
+
+		function doSlot() {
+			if (doing) { return null; }
+			doing = true;
+			var numChanges = randomInt(1, 4) * 7
+			var setToSame = randomInt(3, 6)
+			var numeberSlot1 = numChanges + randomInt(1, 7)
+			var numeberSlot2 = numChanges + 2 * 7 + randomInt(1, 7)
+			var numeberSlot3 = numChanges + 4 * 7 + randomInt(1, 7)
+			// second row
+			var numeberSlot4 = setToSame + 12 * 7 + (3, 6)
+			var numeberSlot5 = setToSame + 14 * 7 + (3, 6)
+			var numeberSlot6 = setToSame + 16 * 7 + (3, 6)
+			// thrid row
+			var numeberSlot7 = numChanges + 6 * 7 + randomInt(1, 7)
+			var numeberSlot8 = numChanges + 8 * 7 + randomInt(1, 7)
+			var numeberSlot9 = numChanges + 10 * 7 + randomInt(1, 7)
+
+
+			var i1 = 0;
+			var i2 = 0;
+			var i3 = 0;
+			// var second row 
+			var i4 = 0;
+			var i5 = 0;
+			var i6 = 0;
+			// var third row 
+			var i7 = 0;
+			var i8 = 0;
+			var i9 = 0;
+
+
+
+			var sound = 0
+			status.innerHTML = "<span style='color: white;'>SPINNING BEST OF LUCK</span>"
+			slot1 = setInterval(spin1, 40);
+			slot2 = setInterval(spin2, 40);
+			slot3 = setInterval(spin3, 40);
+			// second row spin 
+			slot4 = setInterval(spin4, 100);
+			slot5 = setInterval(spin5, 100);
+			slot6 = setInterval(spin6, 100);
+			// third row spin 
+			slot7 = setInterval(spin7, 40);
+			slot8 = setInterval(spin8, 40);
+			slot9 = setInterval(spin9, 40);
+
+			function spin1() {
+				i1++;
+				if (i1 >= numeberSlot1) {
+					coin[0].play()
+					clearInterval(slot1);
+					return null;
+				}
+				slotTile = document.getElementById("slot1");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			function spin2() {
+				i2++;
+				if (i2 >= numeberSlot2) {
+					coin[1].play()
+					clearInterval(slot2);
+					return null;
+				}
+				slotTile = document.getElementById("slot2");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			function spin3() {
+				i3++;
+				if (i3 >= numeberSlot3) {
+					coin[2].play()
+					clearInterval(slot3);
+					return null;
+				}
+				slotTile = document.getElementById("slot3");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			// second row create and spin 
+			function spin4() {
+				i4++;
+				if (i4 >= numeberSlot4) {
+					coin[2].play()
+					clearInterval(slot4);
+					// testWin();
+					return null;
+				}
+				slotTile = document.getElementById("slot4");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			function spin5() {
+				i5++;
+				if (i5 >= numeberSlot5) {
+					coin[2].play()
+					clearInterval(slot5);
+					// testWin();
+					return null;
+				}
+				slotTile = document.getElementById("slot5");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			function spin6() {
+				i6++;
+				if (i6 >= numeberSlot6) {
+					coin[2].play()
+					clearInterval(slot6);
+					testWin();
+					return null;
+				}
+				slotTile = document.getElementById("slot6");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			// third row create and spin
+			function spin7() {
+				i7++;
+				if (i7 >= numeberSlot7) {
+					coin[2].play()
+					clearInterval(slot7);
+					// testWin();
+					return null;
+				}
+				slotTile = document.getElementById("slot7");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			function spin8() {
+				i8++;
+				if (i8 >= numeberSlot8) {
+					coin[2].play()
+					clearInterval(slot8);
+					// testWin();
+					return null;
+				}
+				slotTile = document.getElementById("slot8");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+			function spin9() {
+				i9++;
+				if (i9 >= numeberSlot9) {
+					coin[2].play()
+					clearInterval(slot9);
+					// testWin();
+					return null;
+				}
+				slotTile = document.getElementById("slot9");
+				if (slotTile.className == "a7") {
+					slotTile.className = "a0";
+				}
+				sound++;
+				if (sound == spin.length) {
+					sound = 0;
+				}
+				spin[sound].play();
+				slotTile.className = "a" + (parseInt(slotTile.className.substring(1)) + 1)
+			}
+		}
+
+		function testWin() {
+			var slot4 = document.getElementById("slot4").className
+			var slot5 = document.getElementById("slot5").className
+			var slot6 = document.getElementById("slot6").className
+
+			console.log(slot4 + ' ' + ' ' + slot5 + ' ' + slot6);
+			if (((slot4 == slot5 && slot5 == slot6) ||
+				(slot4 == slot5 && slot6 == "a7") ||
+				(slot4 == slot6 && slot5 == "a7") ||
+				(slot5 == slot6 && slot4 == "a7") ||
+				(slot4 == slot5 && slot4 == "a7") ||
+				(slot4 == slot6 && slot4 == "a7") ||
+				(slot5 == slot6 && slot5 == "a7")) && !(slot4 == slot5 && slot5 == slot6 && slot4 == "a7")) {
+				status.innerHTML = "YOU WIN!";
+				win.play();
+			} else {
+				status.innerHTML = "<span style='color: red;'>**YOU LOSE</span>\n<span style='color: red;'>**TRY AGAIN</span>";
+				lose.play();
+			}
+			doing = false;
+		}
+
+		function toggleAudio() {
+			if (!audio) {
+				audio = !audio;
+				for (var x of spin) {
+					x.volume = 0.5;
+				}
+				for (var x of coin) {
+					x.volume = 0.5;
+				}
+				win.volume = 1.0;
+				lose.volume = 1.0;
+			} else {
+				audio = !audio;
+				for (var x of spin) {
+					x.volume = 0;
+				}
+				for (var x of coin) {
+					x.volume = 0;
+				}
+				win.volume = 0;
+				lose.volume = 0;
+			}
+			document.getElementById("audio").src = "res/icons/audio" + (audio ? "On" : "Off") + ".png";
+		}
+
+		function randomInt(min, max) {
+			return Math.floor((Math.random() * (max - min + 1)) + min);
+		}
+	</script>
+</body>
+
+</html>
